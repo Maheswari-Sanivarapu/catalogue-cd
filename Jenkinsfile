@@ -18,7 +18,7 @@ pipeline {
         string(name: 'deploy_to', choices: ['dev', 'qa', 'prod'], description: 'Pick the Environment')
     }
     stages{
-        stage(){
+        stage('Deploy'){
             steps{
                 script{
                     withAWS(credentials: 'aws-creds', region: 'us-east-1')
