@@ -1,0 +1,6 @@
+deployment:
+  imageURL: maheswari450/catalogue-optimise
+  imageVersion: IMAGE_VERSION
+hpa:
+  maxreplicas: 10
+  utilization: 75
