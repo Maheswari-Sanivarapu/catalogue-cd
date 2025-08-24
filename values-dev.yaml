@@ -1,5 +1,5 @@
 deployment:
-  imageURL: maheswari450/catalogue-optimise
+  imageURL: 557690617909.dkr.ecr.us-east-1.amazonaws.com/roboshop/catalogue
   imageVersion: IMAGE_VERSION
 hpa:
   maxreplicas: 10
