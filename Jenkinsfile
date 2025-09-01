@@ -1,6 +1,6 @@
 pipeline {
     agent{
-        label 'AGENT_1'
+        label 'BASTION_1'
     }
     environment {
         appVersion = ''
