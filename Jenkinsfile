@@ -39,7 +39,7 @@ pipeline {
         stage('check status'){
             steps{
                 script{
-                    withAWS(credentials: 'aws-creds', region: 'us-east-1'){
+                    withAWS(credentials: 'aws-auth', region: 'us-east-1'){
                         def deploymentStatus = sh(returnStdout: true, script: "kubectl rollout status deployment/$COMPONENT --timeout=30s -n $PROJECT || echo FAILED").trim()
                         if (deploymentStatus.contains("successfully rolled out")){
                             echo "Deployment is Success"
