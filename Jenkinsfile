@@ -21,7 +21,7 @@ pipeline {
         stage('Deploy'){
             steps{
                 script{
-                    withAWS(credentials: 'aws-creds', region: 'us-east-1'){
+                    withAWS(credentials: 'aws-auth', region: 'us-east-1'){
                         // here updating the kube-config like an authentication and getting the nodes,creating the namespace
                         // here sed editor we are adding means appVersion we got from CI using the appVersion to CD as downstream so this will pass the appVersion using sed-editor in values-dev.yaml and CD will trigger with that version
                         // deploying the application to kubernetes using helm 
