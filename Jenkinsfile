@@ -19,23 +19,20 @@ pipeline {
     } 
     stages{
         stage('Deploy'){
-            steps{
-                script{
-                    withAWS(credentials: 'aws-auth', region: 'us-east-1'){
-                        // here updating the kube-config like an authentication and getting the nodes,creating the namespace
-                        // here sed editor we are adding means appVersion we got from CI using the appVersion to CD as downstream so this will pass the appVersion using sed-editor in values-dev.yaml and CD will trigger with that version
-                        // deploying the application to kubernetes using helm 
-                        sh """
-                            aws eks update-kubeconfig --region $REGION --name "$PROJECT-${params.deploy_to}"
-                            kubectl get nodes
-                            kubectl apply -f 01-namespace.yaml
-                            sed -i "s/IMAGE_VERSION/${params.appVersion}/g" values-${params.deploy_to}.yaml 
-                            helm upgrade --install $COMPONENT -f values-${params.deploy_to}.yaml -n $PROJECT .
-                        """
+                steps{
+                    script{
+                        withAWS(credentials: 'aws-auth', region: 'us-east-1'){
+                            sh """
+                                aws eks update-kubeconfig --region $REGION --name "$PROJECT-${params.deploy_to}"
+                                kubectl get nodes
+                                kubectl apply -f 01-namespace.yaml
+                                sed -i "s/IMAGE_VERSION/${params.appVersion}/g" values-${params.deploy_to}.yaml 
+                                helm upgrade --install $COMPONENT -f values-${params.deploy_to}.yaml -n $PROJECT .
+                            """
+                        }
                     }
                 }
             }
-        }
         stage('check status'){
             steps{
                 script{
